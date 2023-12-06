@@ -81,5 +81,7 @@ g++ -o example example.cpp -lslogpp
 ## License
 SLog++ is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
+<!--
 ## Acknowledgements
 - [VHS](https://github.com/charmbracelet/vhs)
+-->
