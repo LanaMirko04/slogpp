@@ -1,6 +1,6 @@
 # SLog++
 
-**Shitty Logging** in C++ (see `[slog](https://github.com/LanaMirko04/slog)`)
+**Shitty Logging** in C++ (see [`slog`](https://github.com/LanaMirko04/slog))
 
 ## Features
 
