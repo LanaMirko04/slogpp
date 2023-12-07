@@ -9,6 +9,7 @@
 #include <string>
 #include <cstdio>
 #include <unistd.h>
+#include <stdarg.h>
 #include "slogpp.h"
 #include "colors.h"
 
@@ -176,14 +177,14 @@ void SLog::error(const char * fmt...) {
  */
 void SLog::log(SLog::Level lv,
   const char * fmt, va_list args) {
-  bool use_color = isatty(fileno(stdout)) || log_file;
+  bool use_color = isatty(fileno(stdout)) && !log_file;
 
   switch (lv) {
   case SLog::Level::INFO:
     if (use_color) {
       printf("%s%s[INFO]%s ", BOLD, GREEN, RESET);
     } else {
-      printf("[INFO] ");
+      fprintf(log_file ? log_file : stdout, "[INFO] ");
     }
 
     vfprintf(log_file ? log_file : stdout, fmt, args);
@@ -194,7 +195,7 @@ void SLog::log(SLog::Level lv,
     if (use_color) {
       printf("%s%s[DEBUG]%s ", BOLD, CYAN, RESET);
     } else {
-      printf("[DEBUG] ");
+      fprintf(log_file ? log_file : stdout, "[DEBUG] ");
     }
 
     vfprintf(log_file ? log_file : stdout, fmt, args);
@@ -205,7 +206,7 @@ void SLog::log(SLog::Level lv,
     if (use_color) {
       printf("%s%s[WARNING]%s ", BOLD, YELLOW, RESET);
     } else {
-      printf("[WARNING] ");
+      fprintf(log_file ? log_file : stdout, "[WARNING] ");
     }
 
     vfprintf(log_file ? log_file : stdout, fmt, args);
@@ -213,10 +214,10 @@ void SLog::log(SLog::Level lv,
     break;
 
   case SLog::Level::ERROR:
-    if (use_color) {
-      printf("%s%s[ERROR]%s ", BOLD, RED, RESET);
+    if (!log_file) {
+      fprintf(stderr, "%s%s[ERROR]%s ", BOLD, RED, RESET);
     } else {
-      printf("[ERROR] ");
+      fprintf(log_file ,"[ERROR] ");
     }
 
     vfprintf(log_file ? log_file : stderr, fmt, args);
@@ -238,4 +239,8 @@ int operator & (int lhs, SLog::Level rhs) {
  */
 int operator | (SLog::Level lhs, SLog::Level rhs) {
   return static_cast < int > (lhs) | static_cast < int > (rhs);
+}
+
+int operator | (int lhs, SLog::Level rhs) {
+  return lhs | static_cast < int > (rhs);
 }

@@ -9,6 +9,7 @@
 
 #include <cstdio>
 #include <string>
+#include <stdarg.h>
 
 using namespace std;
 
@@ -18,9 +19,9 @@ class SLog {
    */
 public:
   enum class Level {
-    INFO = 0x01,
+    INFO  = 0x01,
     DEBUG = 0x02,
-    WARN = 0x04,
+    WARN  = 0x04,
     ERROR = 0x08,
   };
 
@@ -104,6 +105,7 @@ public:
   /* friend functions */
   friend int operator & (int lhs, Level rhs);
   friend int operator | (Level lhs, Level rhs);
+  friend int operator | (int lhs, Level rhs);
 
 private:
   /* static variables */
