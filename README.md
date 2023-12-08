@@ -38,7 +38,7 @@ $ tree
 ## Usage
 #### Console logging
 ```c
-#include <iostrema>
+#include <iostream>
 #include <slogpp.h>
 
 int main(void) {
@@ -56,7 +56,7 @@ int main(void) {
 
 #### File logging
 ```c
-#include <iostrema>
+#include <iostream>
 #include <slogpp.h>
 
 int main(void) {
