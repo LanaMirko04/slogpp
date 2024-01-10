@@ -1,7 +1,7 @@
 CXX := g++
 CXXFLAGS := -Wall -Wextra -pedantic -std=c++11
 LDFLAGS := -pthread
-TARGET := libslog.a
+TARGET := libslogpp.a
 SRCDIR := src
 BUILDDIR := build
 SOURCES := $(wildcard $(SRCDIR)/*.cpp)  # Change the file extension to .cpp
